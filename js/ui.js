@@ -10,6 +10,16 @@ const UI = {
             totalConcluidas += cat.metas.filter(m => m.completed).length;
         });
         const totalPercent = totalMetas > 0 ? Math.round((totalConcluidas / totalMetas) * 100) : 0;
+        
+        const now = new Date();
+        const currentWeek = app.getWeekNumber(now);
+        const currentMonthName = now.toLocaleDateString('pt-BR', { month: 'long' });
+        
+        // Calcular metas da semana atual
+        let weeklyCompleted = 0;
+        Object.values(data.categories).forEach(cat => {
+            weeklyCompleted += cat.metas.filter(m => m.completed && m.week === currentWeek).length;
+        });
 
         contentArea.innerHTML = `
             <div class="stats-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
@@ -18,12 +28,13 @@ const UI = {
                     <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">${totalPercent}%</div>
                 </div>
                 <div class="category-card" style="text-align: center;">
-                    <h4>Metas Concluídas</h4>
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--success);">${totalConcluidas} / ${totalMetas}</div>
+                    <h4>Fechamento Semanal</h4>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--warning);">Semana ${currentWeek}</div>
+                    <div style="color: var(--text-muted);">${weeklyCompleted} metas concluídas</div>
                 </div>
                 <div class="category-card" style="text-align: center;">
                     <h4>Status Mensal</h4>
-                    <div style="font-size: 1.2rem; font-weight: 600;">Dezembro</div>
+                    <div style="font-size: 1.2rem; font-weight: 600; text-transform: capitalize;">${currentMonthName}</div>
                     <div style="color: var(--text-muted);">Acompanhamento Ativo</div>
                 </div>
             </div>
@@ -69,7 +80,7 @@ const UI = {
                                     onchange="app.toggleMeta('${id}', '${meta.id}')">
                                 <div class="meta-info">
                                     <span>${meta.text}</span>
-                                    ${meta.date ? `<span class="meta-date">Concluído em: ${meta.date}</span>` : ''}
+                                    ${meta.date ? `<span class="meta-date">Concluído em: ${meta.date} (Semana ${meta.week})</span>` : ''}
                                 </div>
                                 <button class="btn-obs" onclick="app.openModal('${id}', '${meta.id}')">📝</button>
                             </li>

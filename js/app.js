@@ -2,6 +2,14 @@ const app = {
     data: null,
     currentMeta: null,
 
+    getWeekNumber(d) {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+        var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        return weekNo;
+    },
+
     init() {
         this.data = Storage.load();
         UI.updateDate();
@@ -46,8 +54,20 @@ const app = {
 
     toggleMeta(catId, metaId) {
         const meta = this.data.categories[catId].metas.find(m => m.id === metaId);
+        const now = new Date();
+        
         meta.completed = !meta.completed;
-        meta.date = meta.completed ? new Date().toLocaleDateString('pt-BR') : null;
+        if (meta.completed) {
+            meta.date = now.toLocaleDateString('pt-BR');
+            meta.week = this.getWeekNumber(now);
+            meta.month = now.getMonth() + 1;
+            meta.year = now.getFullYear();
+        } else {
+            meta.date = null;
+            meta.week = null;
+            meta.month = null;
+            meta.year = null;
+        }
         
         Storage.save(this.data);
         this.viewCategory(catId);
