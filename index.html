@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendBlade - Gestão de Metas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>TrendBlade</h1>
+                <span>Dashboard de Metas</span>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-category="dashboard">
+                    <span class="icon">📊</span> Dashboard
+                </button>
+                <button class="nav-item" data-category="saude">
+                    <span class="icon">🏋️</span> Saúde
+                </button>
+                <button class="nav-item" data-category="fe">
+                    <span class="icon">🙏</span> Fé
+                </button>
+                <button class="nav-item" data-category="trabalho">
+                    <span class="icon">💼</span> Trabalho
+                </button>
+                <button class="nav-item" data-category="projetos">
+                    <span class="icon">🚀</span> Projetos
+                </button>
+                <button class="nav-item" data-category="casamento">
+                    <span class="icon">❤️</span> Casamento
+                </button>
+                <button class="nav-item" data-category="casa">
+                    <span class="icon">🏠</span> Casa
+                </button>
+                <button class="nav-item" data-category="revisoes">
+                    <span class="icon">📅</span> Revisões
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="current-view-title">Dashboard Geral</h2>
+                <div class="user-info">
+                    <span id="current-date"></span>
+                </div>
+            </header>
+
+            <section id="content-area" class="content-area">
+                <!-- Conteúdo dinâmico injetado pelo JS -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para Observações -->
+    <div id="modal-obs" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Observações</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <textarea id="obs-text" placeholder="Escreva suas notas aqui..."></textarea>
+                <div class="history-section">
+                    <h4>Histórico</h4>
+                    <ul id="obs-history"></ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-obs" class="btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
