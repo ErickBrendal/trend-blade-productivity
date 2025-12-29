@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'trendblade_data';
+const STORAGE_KEY = 'planejamento_erick_2026_data';
 
 const defaultData = {
     categories: {
@@ -61,6 +61,17 @@ const defaultData = {
             icon: '📅',
             metas: [
                 { id: 'r1', text: 'Revisão Mensal', completed: false, date: null, obs: [], history: [] }
+            ]
+        },
+        metas_estruturadas: {
+            title: 'Metas Estruturadas',
+            icon: '📈',
+            isWeekly: true,
+            metas: [
+                { id: 'w1', text: 'Meta Semanal 01', completed: false, date: null, history: [] },
+                { id: 'w2', text: 'Meta Semanal 02', completed: false, date: null, history: [] },
+                { id: 'w3', text: 'Meta Semanal 03', completed: false, date: null, history: [] },
+                { id: 'w4', text: 'Meta Semanal 04', completed: false, date: null, history: [] }
             ]
         }
     }

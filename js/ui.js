@@ -1,7 +1,34 @@
 const UI = {
     renderDashboard(data) {
         const contentArea = document.getElementById('content-area');
-        contentArea.innerHTML = '<div class="dashboard-grid"></div>';
+        
+        // Calcular totais para o resumo
+        let totalMetas = 0;
+        let totalConcluidas = 0;
+        Object.values(data.categories).forEach(cat => {
+            totalMetas += cat.metas.length;
+            totalConcluidas += cat.metas.filter(m => m.completed).length;
+        });
+        const totalPercent = totalMetas > 0 ? Math.round((totalConcluidas / totalMetas) * 100) : 0;
+
+        contentArea.innerHTML = `
+            <div class="stats-summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="category-card" style="text-align: center;">
+                    <h4>Progresso Anual</h4>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">${totalPercent}%</div>
+                </div>
+                <div class="category-card" style="text-align: center;">
+                    <h4>Metas Concluídas</h4>
+                    <div style="font-size: 2rem; font-weight: 700; color: var(--success);">${totalConcluidas} / ${totalMetas}</div>
+                </div>
+                <div class="category-card" style="text-align: center;">
+                    <h4>Status Mensal</h4>
+                    <div style="font-size: 1.2rem; font-weight: 600;">Dezembro</div>
+                    <div style="color: var(--text-muted);">Acompanhamento Ativo</div>
+                </div>
+            </div>
+            <div class="dashboard-grid"></div>
+        `;
         const grid = contentArea.querySelector('.dashboard-grid');
 
         Object.entries(data.categories).forEach(([id, cat]) => {

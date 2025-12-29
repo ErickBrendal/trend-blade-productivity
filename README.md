@@ -1,4 +1,4 @@
-# TrendBlade - Dashboard de Produtividade e Metas
+# Planejamento Erick 2026 - Dashboard de Produtividade e Metas
 
 Um dashboard moderno e interativo para gestão de metas pessoais, projetado para ser reutilizável e escalável. Focado em uma experiência de usuário limpa e eficiente.
 
